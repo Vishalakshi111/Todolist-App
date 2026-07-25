@@ -14,7 +14,7 @@
             @if (User.Identity != null && User.Identity.IsAuthenticated)
             {
                 <span>Hi, @User.Identity.Name</span>
-                <a asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home")">Logout</a>
+                <a asp-area="Identity" asp-page="/Account/Logout">Logout</a>
             }
             else
             {

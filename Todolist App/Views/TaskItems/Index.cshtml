@@ -52,7 +52,9 @@
                 {
                     <div class="task-row" data-title="@item.Title.ToLower()" data-status="@(item.IsDone ? "done" : "pending")">
                         <div class="task-left">
-                            <span class="circle @(item.IsDone ? "circle-done" : "")"></span>
+                            <form asp-action="ToggleDone" asp-route-id="@item.Id" method="post" style="display:inline;">
+                                <button type="submit" class="circle-btn @(item.IsDone ? "circle-done" : "")"></button>
+                            </form>
                             <span class="task-title @(item.IsDone ? "done" : "")">@item.Title</span>
                         </div>
                         <div class="task-right">

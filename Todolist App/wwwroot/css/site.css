@@ -210,6 +210,20 @@ header {
     border: 2px solid #d5d8e3;
     display: inline-block;
 }
+.circle-btn {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    border: 2px solid #d5d8e3;
+    display: inline-block;
+    background: white;
+    cursor: pointer;
+    padding: 0;
+}
+
+.circle-btn:hover {
+        border-color: #6c5ce7;
+}
 
 .circle-done {
     background: #00c896;
