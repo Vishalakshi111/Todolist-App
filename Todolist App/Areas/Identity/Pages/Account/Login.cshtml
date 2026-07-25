@@ -8,7 +8,7 @@
 <div class="form-page">
     <div class="form-card">
         <h2>Log in</h2>
-        <p class="subtext">Welcome back — enter your details.</p>
+        <p class="subtext">Enter your details.</p>
 
         <form id="account" method="post">
             <div asp-validation-summary="ModelOnly" class="text-danger mb-3" role="alert"></div>
@@ -23,11 +23,6 @@
                 <label asp-for="Input.Password" class="form-label">Password</label>
                 <input asp-for="Input.Password" class="text-input" autocomplete="current-password" placeholder="Password" />
                 <span asp-validation-for="Input.Password" class="text-danger"></span>
-            </div>
-
-            <div class="form-check-row">
-                <input asp-for="Input.RememberMe" class="check-input" />
-                <label asp-for="Input.RememberMe" class="check-label">Remember me</label>
             </div>
 
             <div class="form-actions" style="margin-bottom: 16px;">
