@@ -1,4 +1,5 @@
-
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Todolist_App.Models;
@@ -6,16 +7,21 @@ using Todolist_App.Models;
 public class TaskItemsController : Controller
 {
     private readonly AppDbContext _context;
+    private readonly UserManager<IdentityUser> _userManager;
 
-    public TaskItemsController(AppDbContext context)
+    public TaskItemsController(AppDbContext context, UserManager<IdentityUser> userManager)
     {
         _context = context;
+        _userManager = userManager;
     }
 
     // GET: TASKITEMS
-    public async Task<IActionResult> Index()    
+    [Authorize]
+    public async Task<IActionResult> Index()
     {
-        return View(await _context.Tasks.ToListAsync());
+        var userId = _userManager.GetUserId(User);
+        var myTasks = _context.Tasks.Where(t => t.UserId == userId);
+        return View(await myTasks.ToListAsync());
     }
 
     // GET: TASKITEMS/Details/5
@@ -47,15 +53,17 @@ public class TaskItemsController : Controller
     // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
     [HttpPost]
     [ValidateAntiForgeryToken]
-    public async Task<IActionResult> Create([Bind("Id,Title,IsDone")] TaskItem taskitem)
+    [Authorize]
+    public async Task<IActionResult> Create([Bind("Id,Title,IsDone")] TaskItem taskItem)
     {
         if (ModelState.IsValid)
         {
-            _context.Add(taskitem);
+            taskItem.UserId = _userManager.GetUserId(User);
+            _context.Add(taskItem);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
-        return View(taskitem);
+        return View(taskItem);
     }
 
     // GET: TASKITEMS/Edit/5

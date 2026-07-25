@@ -10,5 +10,7 @@ namespace Todolist_App.Models
         public string Title { get; set; }
 
         public bool IsDone { get; set; }
+
+        public string? UserId { get; set; }
     }
 }
