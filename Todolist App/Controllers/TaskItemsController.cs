@@ -15,6 +15,25 @@ public class TaskItemsController : Controller
         _userManager = userManager;
     }
 
+    [HttpPost]
+    [Authorize]
+    [ValidateAntiForgeryToken]
+    public async Task<IActionResult> ToggleDone(int id)
+    {
+        var userId = _userManager.GetUserId(User);
+        var task = await _context.Tasks.FirstOrDefaultAsync(t => t.Id == id && t.UserId == userId);
+
+        if (task == null)
+        {
+            return NotFound();
+        }
+
+        task.IsDone = !task.IsDone;
+        await _context.SaveChangesAsync();
+
+        return RedirectToAction(nameof(Index));
+    }
+
     // GET: TASKITEMS
     [Authorize]
     public async Task<IActionResult> Index()
