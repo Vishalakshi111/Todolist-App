@@ -9,6 +9,16 @@ header {
     text-align: center;
 }
 
+.auth-links {
+    margin-top: 16px;
+    display: block;
+}
+
+    .auth-links span,
+    .auth-links a {
+        margin: 0 8px;
+    }
+
 .app-title-bar {
     display: inline-block;
     margin: 80px auto 0;
